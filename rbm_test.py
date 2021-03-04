@@ -65,6 +65,55 @@ class RBM(nn.Module):
         hidden_term = wx_b.exp().add(1).log().sum(1)
         return (-hidden_term - vbias_term).mean()
 
+"""
+The Model
+---------
+
+"""
+
+class RBM_Hinton(nn.Module):
+    def __init__(self, _):
+        """
+        W   symmetric interaction parameter, the cross-layer dependencies
+        b   bias
+        """
+        super(RBM_Hinton, self).__init__()
+        self.W = ''
+        self.bias = ''
+        self.visible = ''
+        self.hidden = nn.Parameter(torch.zeros(n_hidden))
+
+    def v_given_h(self, hidden, W, bias):
+        """p(v|h)
+
+        conditional multinomial distribution ("softmax") for modeling each column of observed
+        "visible" binary rating matrix V
+        """
+        linear = F.linear(self.hidden, self.W, self.bias)
+        return nn.Softmax(linear)
+
+    def h_given_v(self, visible, W, bias):
+        """p(h|v)
+
+        a conditional Bernoulli distribution for modeling "hidden" user features h
+        """
+        linear = F.linear(self.visible, self.W, self.bias)
+        torch.sigmoid(linear)
+
+    def V_dist(self):
+        """p(V)
+
+        marginal distrivution over the visible ratings V
+        """
+        return nn.Softmax(-self.free_energy).sum(1)
+
+    def energy(self):
+        """
+        energy term
+        """
+        pass
+
+
 
 
 def load_network(file_name):
