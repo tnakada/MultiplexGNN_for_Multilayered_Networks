@@ -20,9 +20,7 @@ import torch.utils.data
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from torch.autograd import Variable
 from torchvision import datasets, transforms
-from torchvision.utils import make_grid, save_image
 from scipy.io import loadmat
 
 
