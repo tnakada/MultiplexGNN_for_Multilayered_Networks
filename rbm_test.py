@@ -68,7 +68,6 @@ class RBM(nn.Module):
 """
 The Model
 ---------
-
 """
 
 class RBM_Hinton(nn.Module):
@@ -78,9 +77,9 @@ class RBM_Hinton(nn.Module):
         b   bias
         """
         super(RBM_Hinton, self).__init__()
-        self.W = ''
-        self.bias = ''
-        self.visible = ''
+        self.W = nn.Parameter(torch.randn(n_hin,n_vis))
+        self.bias =
+        self.visible = nn.Parameter(torch.zeros(n_visible))
         self.hidden = nn.Parameter(torch.zeros(n_hidden))
 
     def v_given_h(self, hidden, W, bias):
@@ -112,7 +111,6 @@ class RBM_Hinton(nn.Module):
         energy term
         """
         pass
-
 
 
 
